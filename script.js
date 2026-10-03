@@ -21,7 +21,10 @@ function draw(){
   // for (const note of notes) {
     // const y = hitLineY - (note.time - t) * speed;
   ctx.fillStyle='white'
-  ctx.fillRect(xtox(10*Math.floor(Math.random()*100)), ytoy(10*Math.floor(Math.random()*100)), 60, 20); // ノーツを四角で描く
+  for(let i=0;i<1000;i++){
+    ctx.fillRect(xtox(10*Math.floor(Math.random()*100)), ytoy(10*Math.floor(Math.random()*100)), 60, 20); // ノーツを四角で描く
+  }
+  
   // }
 }
 
