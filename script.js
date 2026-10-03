@@ -38,9 +38,10 @@ function draw(){
     // const y = hitLineY - (note.time - t) * speed;
   ctx.fillStyle='white'
   for(let i=0;i<1000;i++){
-    ctx.fillRect(xtox(10*Math.floor(Math.random()*100)), ytoy(10*Math.floor(Math.random()*100)), 60, 20); // ノーツを四角で描く
+    ctx.fillRect(xtox(10*Math.floor(Math.random()*100)), ytoy(10*Math.floor(Math.random()*100)), xtox(60), ytoy(20)); // ノーツを四角で描く
   }
-  ctx.fillText('fps'+(10/c_fps).toFixed(2), 10, 50);
+  ctx.fillStyle='red'
+  ctx.fillText('fps'+(10/c_fps).toFixed(2), xtox(50), ytoy(50));
   // }
 }
 
