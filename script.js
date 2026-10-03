@@ -15,10 +15,12 @@ function update(){
 }
 function draw(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle='black'
   ctx.fillRect(0,0,xtox(1000),ytoy(1000));
   // const t = audio.currentTime * 1000;
   // for (const note of notes) {
     // const y = hitLineY - (note.time - t) * speed;
+  ctx.fillStyle='white'
   ctx.fillRect(xtox(10*Math.floor(Math.random()*100)), ytoy(10*Math.floor(Math.random()*100)), 60, 20); // ノーツを四角で描く
   // }
 }
