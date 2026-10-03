@@ -25,7 +25,7 @@ function draw(now){
     frame10.push(dt)
   }else{
     for(let i=0;i<9;i++){
-      frame10[i] = frame[i+1]
+      frame10[i] = frame10[i+1]
       c_fps += frame10[i]
     }
     frame10[9] = dt
