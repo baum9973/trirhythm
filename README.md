@@ -1,1 +1,1 @@
-# my-rhythm-game
+# Trirhythm
