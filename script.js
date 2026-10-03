@@ -1,11 +1,13 @@
 const canvas = document.getElementById("game");
+canvas.width=document.documentElement.clientWidth
+canvas.height=document.documentElement.clientHeight
 const ctx = canvas.getContext("2d");
 const xtox = x=>x/800*canvas.width
 const ytoy = y=>y/800*canvas.height
 
 window.onresize=e=>{
-  canvas.width=window.width
-  canvas.height=window.height
+  canvas.width=document.documentElement.clientWidth
+  canvas.height=document.documentElement.clientHeight
 }
 
 function update(){
