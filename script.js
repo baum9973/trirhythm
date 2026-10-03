@@ -16,7 +16,7 @@ window.onresize=e=>{
 function update(){
 
 }
-function draw(){
+function draw(now){
   const dt = now - last; // 前のフレームからの経過時間(ms)
   last = now
   count++
@@ -47,7 +47,7 @@ function draw(){
 
 function loop(now) {
   update()
-  draw()
+  draw(now)
   requestAnimationFrame(loop) // 次のフレームも予約する
 }
 requestAnimationFrame(loop);
