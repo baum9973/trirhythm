@@ -88,15 +88,12 @@ function addobj(key,json){
 }
 
 function hitobj(key){
-  console.log('helllo')
   switch(obj[key].type){
     case 'circle':
       return (mouse.x - obj[key].x)**2 + (mouse.y - obj[key].y)**2 <= obj[key].radious**2
-      break
     case 'rect':
       return obj[key].x - obj[key].width/2 <= mouse.x <= obj[key].x + obj[key].width/2 
       &&  obj[key].y - obj[key].height/2 <= mouse.y <= obj[key].y + obj[key].height/2
-      break
   }
 }
 
@@ -106,12 +103,12 @@ function update(){
     obj = {}
     switch(scene){
       case 'loading':
-        addobj('loading_bar',{type:'rect',x:500,y:800,width:100,height:5,color:"#fff",f:(o,n)=>{o.width=Math.max(0,Math.min(1000,(-1)**(Math.floor(Math.random()*2))*Math.floor(Math.random()*20)))}})
+        addobj('loading_bar',{type:'rect',x:500,y:800,width:100,height:5,color:"#fff",f:(o,n)=>{o.width=Math.max(0,Math.min(1000,(-1)**(Math.floor(Math.random()*2))*Math.floor(Math.random()*20)));if(loaded>=images.length+audios.length){scene='title'}}})
         addobj('loading_bgbar',{type:'rect',x:500,y:800,width:100,height:5,color:"#666"})
-        addobj('gamestart_btn',{type:'rect',x:500,y:600,width:100,height:5,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='title'}}})
+        // addobj('gamestart_btn',{type:'rect',x:500,y:600,width:100,height:50,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='title'}}})
         break
       case 'title':
-        addobj('startbtn',{type:'rect',x:500,y:600,width:100,height:5,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='selectsong'}}})
+        addobj('startbtn',{type:'rect',x:500,y:600,width:100,height:50,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='selectsong'}}})
         
         break
       case 'story':
@@ -240,8 +237,8 @@ function loop(now) {
 
 async function main() {
   try{
-    await loading();
     requestAnimationFrame(loop); // 読み込み後にゲーム開始
+    await loading();
   }catch(e){
     ctx.fillText("読み込みエラー:"+e.message,xtox(500),ytoy(500))
   }
