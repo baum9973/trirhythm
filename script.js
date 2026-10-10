@@ -83,7 +83,7 @@ function loadAudio(src) {
 
 function addobj(key,json){
   json['t'] = currentTime
-  json['id'] = key
+  json['key'] = key
   obj[key] = json
 }
 
