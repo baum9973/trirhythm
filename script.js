@@ -105,7 +105,7 @@ function update(){
       case 'loading':
         addobj('loading_bar',{type:'rect',x:500,y:800,width:100,height:5,color:"#fff",f:(o,n)=>{
           o.width=Math.max(0,Math.min(1000,(-1)**(Math.floor(Math.random()*2))*Math.floor(Math.random()*20)))
-          if(loaded>=Object.keys(images).length+Object.keys(audios).length){scene='title'}
+          if(loaded>=Object.keys(files).length){scene='title'}
         }})
         addobj('loading_bgbar',{type:'rect',x:500,y:800,width:100,height:5,color:"#666"})
         // addobj('gamestart_btn',{type:'rect',x:500,y:600,width:100,height:50,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='title'}}})
@@ -139,6 +139,10 @@ function update(){
         break
     }
   }
+  let objkeys = Object.keys(obj)
+  for(let i=0;i<objkeys.length;i++){
+    obj[objkeys[i]].f?.(obj[objkeys[i]],currentTime)
+  }
 }
 
 function draw(now){
@@ -164,9 +168,9 @@ function draw(now){
   ctx.fillStyle='black'
   ctx.fillRect(0,0,xtox(1000),ytoy(1000))
   // オブジェクトの動作・描画
-  for(let i=0;i<Object.keys(obj).length;i++){
-    let objt = obj[Object.keys(obj)[i]]
-    objt.f?.(objt,currentTime)
+  let objkeys = Object.keys(obj)
+  for(let i=0;i<objkeys.length;i++){
+    let objt = obj[objkeys[i]]
     ctx.fillStyle=objt.color
     switch(objt.type){
       case 'rect':
