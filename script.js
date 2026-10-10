@@ -26,6 +26,8 @@ let currentTime
     f(obj,now) (動きの関数)
     radious (もしcircleなら必須)
     src (もしimageなら必須)
+    font (もしtextなら必須)
+    text (もしtextなら必須)
     data (なんか持たせたければ)
 */
 
@@ -105,25 +107,32 @@ function update(){
       case 'loading':
         addobj('loading_bar',{type:'rect',x:500,y:800,width:100,height:5,color:"#fff",f:(o,n)=>{o.width=Math.max(0,Math.min(1000,(-1)**(Math.floor(Math.random()*2))*Math.floor(Math.random()*20)))}})
         addobj('loading_bgbar',{type:'rect',x:500,y:800,width:100,height:5,color:"#666"})
-        addobj('gamestart_btn',{type:'rect',x:500,y:600,width:100,height:5,color:"#000",f:(o,n)=>{if(hitobj(o.key)){scene='title'}}})
+        addobj('gamestart_btn',{type:'rect',x:500,y:600,width:100,height:5,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='title'}}})
         break
       case 'title':
-        addobj('startbtn',{type:'rect',x:500,y:600,width:100,height:5,color:"#000",f:(o,n)=>{if(hitobj(o.key)){scene='selectsong'}}})
-        addobj('setting',{type:'rect',x:100,y:100,width:40,height:40,color:"#000",f:(o,n)=>{if(hitobj(o.key)){scene='setting_title'}}})
-        break
-      case 'setting_title':
-        addobj('backbtn',{type:'rect',x:100,y:100,width:40,height:40,color:"#000",f:(o,n)=>{if(hitobj(o.key)){scene='title'}}})
+        addobj('startbtn',{type:'rect',x:500,y:600,width:100,height:5,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='selectsong'}}})
+        
         break
       case 'story':
         break
       case 'selectsong':
         for(let i=0;i<songs.length;i++){
-          addobj('setting',{type:'rect',x:100,y:100+i*100,width:800,height:100,color:"#000",data:{id:i},f:(o,n)=>{if(hitobj(o.key)){
+          addobj('song'+i,{type:'rect',x:550,y:100+i*100,width:800,height:100,color:"#800",data:{id:i},f:(o,n)=>{if(hitobj(o.key)){
             console.log(o.data.id)
           }}})
+          addobj('backbtn',{type:'rect',x:100,y:100,width:40,height:40,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='title'}}})
+          addobj('setting',{type:'rect',x:100,y:200,width:40,height:40,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='setting_ss'}}})
         }
         break
+      case 'setting_ss':
+        addobj('backbtn',{type:'rect',x:100,y:100,width:40,height:40,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='selectsong'}}})
+        break
       case 'play':
+        addobj('lane0',{type:'line',x1:200,y1:0,x2:200,y2:1000,width:2,color:"#800"})
+        addobj('lane1',{type:'line',x1:400,y1:0,x2:400,y2:1000,width:2,color:"#800"})
+        addobj('lane2',{type:'line',x1:600,y1:0,x2:600,y2:1000,width:2,color:"#800"})
+        addobj('lane3',{type:'line',x1:800,y1:0,x2:800,y2:1000,width:2,color:"#800"})
+        addobj('backbtn',{type:'rect',x:100,y:100,width:40,height:40,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='selectsong'}}})
         break
       case 'result':
         break
@@ -153,11 +162,36 @@ function draw(now){
   ctx.clearRect(0, 0, xtox(canvas.width), ytoy(canvas.height))
   ctx.fillStyle='black'
   ctx.fillRect(0,0,xtox(1000),ytoy(1000))
-  // オブジェクト描画
-
+  // オブジェクトの動作・描画
   for(let i=0;i<Object.keys(obj).length;i++){
-    let okey = Object.keys(obj)[i]
-
+    let objt = obj[Object.keys(obj)[i]]
+    objt.f?.(objt,currentTime)
+    ctx.fillStyle=objt.color
+    switch(objt.type){
+      case 'rect':
+        ctx.fillRect(xtox(objt.x),ytoy(objt.y),xtox(objt.width),ytoy(objt.height))
+        break
+      case 'circle':
+        ctx.beginPath()
+        ctx.ellipse(xtox(objt.x),ytoy(objt.y), xtox(objt.radious),ytoy(objt.radious), 0, 0, Math.PI*2)
+        ctx.fill()
+        ctx.stroke()
+        break
+      case 'text':
+        ctx.font = objt.font
+        ctx.fillText(objt.text,xtox(objt.x),ytoy(objt.y))
+        break
+      case 'image':
+        ctx.fillRect(xtox(objt.x),ytoy(objt.y),xtox(objt.width),ytoy(objt.height))
+        break
+      case 'line':
+        ctx.beginPath()
+        ctx.moveTo(xtox(objt.x1),ytoy(objt.y1))
+        ctx.lineTo(xtox(objt.x2),ytoy(objt.y2))
+        ctx.strokeStyle = objt.color
+        ctx.lineWidth = objt.width
+        ctx.stroke()
+    }
   }
 
   // const t = audio.currentTime * 1000
