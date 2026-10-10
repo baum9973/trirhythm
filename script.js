@@ -88,6 +88,7 @@ function addobj(key,json){
 }
 
 function hitobj(key){
+  console.log('helllo')
   switch(obj[key].type){
     case 'circle':
       return (mouse.x - obj[key].x)**2 + (mouse.y - obj[key].y)**2 <= obj[key].radious**2
