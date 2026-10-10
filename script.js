@@ -103,7 +103,10 @@ function update(){
     obj = {}
     switch(scene){
       case 'loading':
-        addobj('loading_bar',{type:'rect',x:500,y:800,width:100,height:5,color:"#fff",f:(o,n)=>{o.width=Math.max(0,Math.min(1000,(-1)**(Math.floor(Math.random()*2))*Math.floor(Math.random()*20)));if(loaded>=images.length+audios.length){scene='title'}}})
+        addobj('loading_bar',{type:'rect',x:500,y:800,width:100,height:5,color:"#fff",f:(o,n)=>{
+          o.width=Math.max(0,Math.min(1000,(-1)**(Math.floor(Math.random()*2))*Math.floor(Math.random()*20)))
+          if(loaded>=Object.keys(images).length+Object.keys(audios).length){scene='title'}
+        }})
         addobj('loading_bgbar',{type:'rect',x:500,y:800,width:100,height:5,color:"#666"})
         // addobj('gamestart_btn',{type:'rect',x:500,y:600,width:100,height:50,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='title'}}})
         break
