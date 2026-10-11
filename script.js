@@ -98,6 +98,10 @@ const audios = {};
 let loaded = 0;
 const total = Object.keys(files).length;
 
+const songs = Object.freeze([
+  {title:'song1',easy:{difficulty:1,chart:[]}}
+])
+
 async function loading() {
   const tasks = Object.entries(files).map(async ([name, src]) => {
     if(src[0]=='i'){
