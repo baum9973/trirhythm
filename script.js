@@ -143,6 +143,7 @@ function hitobj(key){
     case 'circle':
       return (mouse.x - obj[key].x)**2 + (mouse.y - obj[key].y)**2 <= obj[key].radious**2
     case 'rect':
+      console.log(obj[key],mouse)
       return obj[key].x - obj[key].width/2 <= mouse.x <= obj[key].x + obj[key].width/2 
       &&  obj[key].y - obj[key].height/2 <= mouse.y <= obj[key].y + obj[key].height/2
   }
@@ -170,7 +171,7 @@ function update(){
       case 'selectsong':
         for(let i=0;i<songs.length;i++){
           addobj('song'+i,{type:'rect',x:550,y:100+i*100,width:800,height:100,color:"#800",data:{id:i},f:(o,n)=>{if(hitobj(o.key)){
-            console.log(o.data.id)
+            // console.log(o.data.id)
           }}})
           addobj('backbtn',{type:'rect',x:100,y:100,width:40,height:40,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='title'}}})
           addobj('setting',{type:'rect',x:100,y:200,width:40,height:40,color:"#800",f:(o,n)=>{if(hitobj(o.key)){scene='setting_ss'}}})
