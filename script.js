@@ -35,8 +35,8 @@ let currentTime
 const mouse = { x: 0, y: 0, click: false};
 canvas.addEventListener("mousemove", (e) => {
   const rect = canvas.getBoundingClientRect()
-  mouse.x = xtox((e.clientX - rect.left) * (canvas.width / rect.width))
-  mouse.y = ytoy((e.clientY - rect.top) * (canvas.height / rect.height))
+  mouse.x = (e.clientX - rect.left) * (canvas.width / rect.width) * canvas.width / 1000
+  mouse.y = (e.clientY - rect.top) * (canvas.height / rect.height) * canvas.height / 1000
 })
 
 window.onresize=e=>{
