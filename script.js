@@ -32,7 +32,7 @@ let currentTime
 */
 
 // マウス座標管理 当たり判定などもここから使う
-const mouse = { x: 0, y: 0 };
+const mouse = { x: 0, y: 0, click: false};
 canvas.addEventListener("mousemove", (e) => {
   const rect = canvas.getBoundingClientRect()
   mouse.x = (e.clientX - rect.left) * (canvas.width / rect.width)
@@ -42,6 +42,53 @@ canvas.addEventListener("mousemove", (e) => {
 window.onresize=e=>{
   canvas.width=document.documentElement.clientWidth
   canvas.height=document.documentElement.clientHeight
+}
+
+window.onpointerdown=e=>{
+  mouse.click=true
+}
+window.onpointerup=e=>{
+  mouse.click=false
+}
+
+window.onkeydown=e=>{
+  console.log(e.key)
+}
+
+// 設定一覧
+if(localStorage.getItem('lane_backwidth')===null){
+  localStorage.setItem('lane_backwidth',100)
+}
+if(localStorage.getItem('acceleration')===null){
+  localStorage.setItem('acceleration',0)
+}
+if(localStorage.getItem('speed')===null){
+  localStorage.setItem('speed',10)
+}
+if(localStorage.getItem('timingA')===null){
+  localStorage.setItem('timingA',0)
+}
+if(localStorage.getItem('timingB')===null){
+  localStorage.setItem('timingB',0)
+}
+if(localStorage.getItem('volume_bgm')===null){
+  localStorage.setItem('volume_bgm',100)
+}
+if(localStorage.getItem('volume_se')===null){
+  localStorage.setItem('volume_se',100)
+}
+if(localStorage.getItem('judge_display')===null){
+  localStorage.setItem('judge_display',true)
+}
+if(localStorage.getItem('judgefl_display')===null){
+  localStorage.setItem('judgefl_display',true)
+}
+if(localStorage.getItem('key')===null){
+  localStorage.setItem('key',{
+    left:['a','ArrowLeft'],
+    right:['d','ArrowRight'],
+    attack:['w','ArrowUp']
+  })
 }
 
 const files = Object.freeze({
@@ -139,6 +186,7 @@ function update(){
         break
     }
   }
+  // オブジェクトの動作
   let objkeys = Object.keys(obj)
   for(let i=0;i<objkeys.length;i++){
     obj[objkeys[i]].f?.(obj[objkeys[i]],currentTime)
@@ -167,7 +215,7 @@ function draw(now){
   ctx.clearRect(0, 0, xtox(canvas.width), ytoy(canvas.height))
   ctx.fillStyle='black'
   ctx.fillRect(0,0,xtox(1000),ytoy(1000))
-  // オブジェクトの動作・描画
+  // オブジェクトの描画
   let objkeys = Object.keys(obj)
   for(let i=0;i<objkeys.length;i++){
     let objt = obj[objkeys[i]]
@@ -201,32 +249,6 @@ function draw(now){
 
   // const t = audio.currentTime * 1000
     // const y = hitLineY - (note.time - t) * speed
-
-  /*
-  ctx.fillStyle='white'
-  for(let i=0;i<1000;i++){
-    ctx.fillRect(xtox(10*Math.floor(Math.random()*100)), ytoy(10*Math.floor(Math.random()*100)), xtox(60), ytoy(20)) // ノーツを四角で描く
-  }//*/
-
-  /*
-  // シーン別
-  switch(scene){
-    case 'loading':
-      break
-    case 'title':
-      ctx.fillRect(xtox(100),ytoy(50),xtox(500),ytoy(800))
-      break
-    case 'setting':
-      break
-    case 'story':
-      break
-    case 'selectsong':
-      break
-    case 'play':
-      break
-    case 'result':
-      break
-  }//*/
 
   /* fps描画用
     ctx.fillStyle='red'
