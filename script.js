@@ -144,8 +144,8 @@ function hitobj(key){
       return (mouse.x - obj[key].x)**2 + (mouse.y - obj[key].y)**2 <= obj[key].radious**2
     case 'rect':
       // console.log(obj[key],mouse)
-      return obj[key].x - obj[key].width/2 <= mouse.x && mouse.x <= obj[key].x + obj[key].width/2 
-      &&  obj[key].y - obj[key].height/2 <= mouse.y && mouse.y <= obj[key].y + obj[key].height/2
+      return obj[key].x <= mouse.x && mouse.x <= obj[key].x + obj[key].width
+      &&  obj[key].y <= mouse.y && mouse.y <= obj[key].y + obj[key].height
   }
 }
 
